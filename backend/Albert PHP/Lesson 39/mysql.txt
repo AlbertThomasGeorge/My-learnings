@@ -1,0 +1,241 @@
+select * from personal where binary name not like "Aa%"; // only names beginning with Aa considered, without binary names beginning with Aa or aA or AA or aa would be considered
+if we say between 18 and 20 are included
+select * from personal where name regexp 'ro'; // details of students with names containing ro or RO or Ro or rO are shown
+select * from personal where name regexp '^aa'; // details of students with names containing aa or Aa or aA or AA at the beginning are shown 
+select * from personal where name regexp 'hn$'; // details of students with names containing hn or HN or Hn or hN at the end are shown 
+select * from personal where name regexp 'hn$|tom|i'; // details of students with names containing hn or HN or Hn or hN at the end are shown, also details of students with names containing tom or TOM or Tom or tOM or tOm or ToM are shown, also details of students with names containing i or I are shown 
+select * from personal where name regexp '[k-m]'; // details of students with names containing k or K or l or L or m or M are displayed
+select * from personal where name regexp '[ar]o'; // details of students with names containing ao or AO or Ao oraO or ro or RO or Ro or rO are shown 
+select * from personal where name regexp '^[ar]o'; // details of students with names beginning with ao or AO or Ao oraO or ro or RO or Ro or rO are shown 
+A field with a NULL value is one that has been left blank during record creation.
+SELECT column_name(s) FROM table_name WHERE column_name IS NULL;
+SELECT column_name(s) FROM table_name WHERE column_name IS NOT NULL;
+select * from personal limit 2; only first two records of personal table is shown
+select * from personal where city = "Agra" order by name limit 2;
+select * from personal limit 2, 3; 3rd, 4th and 5th records are displayed 
+select * from personal limit 0, 3; 1st, 2nd and 3rd records are displayed 
+rollback only works with insert, update and delete
+click edit, then click preferences, then click sql execution, then make sure New connections use auto commit mode is unchecked, if New connections use auto commit mode is checked after an insert or update or delete command is executed the changes are made permanent even without explicitly typing commit and executing it, if New connections use auto commit mode is unchecked then after an insert or update or delete 
+command is executed the changes are not made permanent until commit is typed and executed 
+rollback undoes uncommited changes 
+primary key(id)
+id int not null auto_increment, for the first record of the table the default value of id is 1, for the second record the default value of id is 2 if id was 1 for the first record, for the third record the default value of id is 3 if id was 1 for the first record and id was 2 for the second record, if id was explicilty set as 10 for the first record, then the default value of id for the second record is 11, id has to 
+be a primary key or should be unique 
+alter table table_name add primary key(id);
+alter table table_name add foreign key (city_name) references city(c_id) 
+CROSS JOIN can be replaced by just a ,
+select name from personal where course = ( select course_id from courses where course_name = "BSW" ); or select name from personal where course in ( select course_id from courses where course_name = "BSW" ); can be typed since the subquery would return only one column with one record, if subquery returns more than one record in has to be used instead of =
+select name from personal where exists ( select course_id from courses where course_name in ( "BSW" ) ); all names of the personal table are shown only if the subquery returns at least one record, if subquery returns no records then no names are shown
+select name from personal where not exists ( select course_id from courses where course_name in ( "BSW" ) ); all names of the personal table are shown only if the subquery returns no records, if subquery returns at least one record then no names are shown 
+select column1, column2, if(condition, true result, false result) as alias_name from table_name;
+select id, name, percentage, if ( percentage >= 33, "Pass", "Fail" ) as result from students;
+select id, name, percentage, 
+case 
+	when percentage >= 80 and percentage <= 100 then "merit"
+    when percentage >= 60 and percentage < 80 then "first division"
+    when percentage >= 45 and percentage < 60 then "second division"
+    when percentage >= 33 and percentage < 45 then "third division"
+    when percentage < 33 then "fail"
+    else "not correct %"
+end as grade
+from students;
+update students set 
+percentage = ( case id 
+			       when 3 then 39
+                   when 7 then 62
+			   end )
+where id in ( 3, 7 );
+sign(number) if number more than 0 returns 1, if number less than 0 returns 1, if number equal to 0 returns 0
+rand() returns 0 or a number between 0 and 1
+select 5 + 6; column name is 5 + 6, only value in column named 5 + 6 is 11
+select 5 + 6 as total; column name is total, only values in column named total is 11
+-, *, 
+/ // 15/6 is 2.5000, 
+% or mod,
+div // 11 div 6 is 1, 6 div 2 is 3, 14 div 6 is 2
+select id, name, percentage+5 from students;
+select pi(); result would include just one column named pi(), the column would have just one value which is 3.141593 
+select round(-4.56); column name is round(-4.56), the column round(-4.56) would have just one value which is -5
+select round(1234.987); column name is round(1234.987), the column round(1234.987) would have just one value which is 1235
+select round(1234.987, 2); column name is round(1234.987, 2), the column round(1234.987, 2) would have just one value which is 1234.99, the second parameter in the round function which is 2 signifies the number of decimal places to be there after the decimal point
+select ceil(1.23);
+select floor(4.40);
+select pow(2,3); column name is pow(2,3), the column pow(2,3) would have just one value which is 8
+select sqrt(16);
+select round(sqrt(5));
+select round(rand()*100);
+select id, name, percentage from students order by rand(); the records are shown in random order each time the command is run
+select abs(-9.8); 
+select sign(25);
+select id, upper(name) as "name in uppercase", percentage from students; all names in students table are shown in uppercase, the column containing names in uppercase is named name in uppercase
+ucase function behaves exactly like upper function
+select id, lower(name) as "name in lowercase", percentage from students; all names in students table are shown in lowercase, the column containing names in lowercase is named name in lowercase
+lcase function behaves exactly like lower function
+select id, name, character_length(name) from students; there is a column named character_length(name) having number of characters in each of the names of the students table as values, space is included 
+char_length function behaves exactly like character_length function 
+select id, name, length(name) from students; there is a column named length(name) having number of bytes in each of the names of the students table as values 
+select id, concat(name, " ", percentage) as "name and percentage" from students; column named name and percentage has names and percentages of the students table displayed, there is a space between the name and the percentage of each student of the students table 
+select concat_ws(" - ", "Baba", "Youtube", "Channel") as name; first parameter of concat_ws function is separator, all the other strings other than the first string mentioned would be separated by the separator which is the first string, column name would be name, the only value in the column named name is Baba - Youtube - Channel 
+select "     Yahoo Baba     " as name; column named name has only just one value which is      Yahoo Baba     , there are 5 spaces to the left of Yahoo Baba and 5 spaces to the right of Yahoo Baba
+select ltrim("     Yahoo Baba     ") as name; column named name has only just one value which is Yahoo Baba     , there are no spaces to the left of Yahoo Baba but there are 5 spaces to the right of Yahoo Baba
+select rtrim("     Yahoo Baba     ") as name; column named name has only just one value which is      Yahoo Baba, there are 5 spaces to the left of Yahoo Baba but there are no spaces to the right of Yahoo Baba
+select trim("     Yahoo Baba     ") as name; column named name has only just one value which is Yahoo Baba, there are no spaces to the left of Yahoo Baba and there are no spaces to the right of Yahoo Baba 
+select position("Baba" in "Yahoo Baba") as pos; column named pos has just one value only, the value is 7 which is the starting position of the word Baba in Yahoo Baba, Y is the first character at position 1, a is the second character, h is the third character, then there are two o's, space is the sixth character, B is the seventh character which is the first character of the word Baba, so 7 is displayed 
+select position("Baba" in "Yahoo Baba Baba") as pos; column named pos has just one value only which is 7 which is the starting position of the first Baba in Yahoo Baba Baba
+select position("a" in "Yahoo Baba Baba") as pos; column named pos has just only one value which is 2 
+select instr("Yahoo Baba Baba", "a") as pos; column named pos has just only one value which is 2
+select instr("Yahoo Baba Baba", "Baba") as pos; column named pos has just only one value which is 7
+select instr("Yahoo Baba Baba", "hoo") as pos; column named pos has just only one value which is 3
+select locate("a", "Yahoo Baba Baba") as pos; column named pos has just only one value which is 2 
+select locate("a", "Yahoo Baba Baba", 3) as pos; column named pos has just only one value, the value displayed is the starting position of the first a after position 2 which is 8
+select substring("Yahoo Baba", 3); column named substring("Yahoo Baba", 3) has just only one value which is hoo Baba
+select substring("Yahoo Baba", 3, 6); column named substring("Yahoo Baba", 3, 6) has just only one value which is hoo Ba
+select substring("Yahoo Baba", -6, 3); column named substring("Yahoo Baba", -6, 3) has just only one value which is o B 
+substr and mid functions behave exactly like substring function
+select substring_index("www.yahoobaba.net", ".", 1); column named substring_index("www.yahoobaba.net", ".", 1) has just only one value, everything that was before the first dot in the string "www.yahoobaba.net" is displayed, so the only value of the column substring_index("www.yahoobaba.net", ".", 1) is www 
+select substring_index("www.yahoobaba.net", ".", 2); column named substring_index("www.yahoobaba.net", ".", 2) has just only one value, everything that was before the second dot in the string "wew.yahoobaba.net" is displayed, so the only value of the column substring_index("www.yahoobaba.net", ".", 2) is www.yahoobaba
+select left("Yahoo Baba", 5); column named left("Yahoo Baba", 5) has just only one value which is Yahoo, the value is the first 5 characters of the string "Yahoo Baba"
+select right("Yahoo Baba", 3); column named right("Yahoo Baba", 3) has just only one value which is aba, the value is the last 3 characters of the string "Yahoo Baba"
+select rpad("Yahoo Baba", 20, "-"); column named rpad("Yahoo Baba", 20, "-") has just only one value, the string "Yahoo Baba" has 10 characters, a string of 20 characters is made by adding 10 hyphens at the end of the string "Yahoo Baba", the value of column rpad("Yahoo Baba", 20, "-") is Yahoo Baba----------
+select rpad("Yahoo Baba", 20, "ABC"); column named rpad("Yahoo Baba", 20, "ABC") has just only one value which is Yahoo BabaABCABCABCA
+select lpad("Yahoo Baba", 20, "*"); column named lpad("Yahoo Baba", 20, "*") has just only one value which is **********Yahoo Baba
+select space(5); column named space(5) has just only one value which is      , the number of spaces in the value of column named space(5) is 5 
+select reverse("Yahoo Baba"); column named reverse("Yahoo Baba") has just only one value which is abaB oohaY
+select replace("Yahoo Baba", "Baba", "Wow"); column named replace("Yahoo Baba", "Baba", "Wow") has just only one value which is Yahoo Wow 
+select replace("Yahoo Baba Yoo Baba", "Baba", "Wow"); column named replace("Yahoo Baba Yoo Baba", "Baba", "Wow") has just only one value which is Yahoo Wow Yoo Wow 
+select strcmp("Yahoo Baba", "yahoo baba"); column named strcmp("Yahoo Baba", "yahoo baba") has just only one value which is 0 because both strings are the same letterwise though not casewise
+select strcmp("Yahoo Baba", "yahoo "); column named strcmp("Yahoo Baba", "yahoo ") has just only one value which is 1 because first string "Yahoo Baba" is bigger than second string that is "yahoo "
+select strcmp("Yahoo ", "yahoo baba"); column named strcmp("Yahoo ", "yahoo baba") has just only one value which is -1 because first string "Yahoo " is smaller than second string that is "yahoo baba"
+select field("a", "X", "k", "a"); column named field("a", "X", "k", "a") has just only one value, the first string passed to the function field which is "a" is searched for from the remaining strings passed to the function, "X" is the first string that is compared with "a", "k" is the second string that is compared with "a", "a" is the third string that is compared with "a", 3 is the value of the column named 
+                                  field("a", "X", "k", "a") since only  during the third string comparision were the strings matched 
+select field("a", "X", "A", "k"); column named field("a", "X", "A", "k") has just only one value which is 2 
+select field(5, 0, 1, 2, 3, 4, 5); column named field(5, 0, 1, 2, 3, 4, 5) has just only one value which is 6
+select field("albert", "Albert", "Thomas", "George"); column named field("albert", "Albert", "Thomas", "George") has just only one value which is 1 
+select find_in_set("Albert", "thomas,albert,geroge"); column named find_in_set("Albert", "thomas,albert,geroge") has just only one value which is 2
+select find_in_set("Albert", "thomas, albert,geroge"); column named find_in_set("Albert", "thomas, albert,geroge") has just only one value which is 0
+select find_in_set("Thomas", "thomas, albert,geroge"); column named find_in_set("Thomas", "thomas, albert,geroge") has just only one value which is 1
+select format(255.3568, 2); column named format(255.3568, 2) has just only one value which is 255.36 
+select format(255.3548, 2); column named format(255.3548, 2) has just only one value which is 255.35
+select format(255.3568, 3); column named format(255.3568, 3) has just only one value which is 255.357
+select hex("Yahoo Baba"); column named hex("Yahoo Baba") has just only one value which is 5961686F6F2042616261, the value is the hexadecimal equivalent of the string "Yahoo Baba"
+select current_date(); column named current_date() has just only one value which is 2026-01-02, 01 is the month, 02 is the day, the current date of the place where this computer existed when the command in this line was run is shown 
+select curdate(); column named curdate() has just only one value which is 2026-01-02, 01 is the month, 02 is the day, the current date shown is of the place where this computer existed when the command in this line was run 
+select sysdate(); column named sysdate() has just only one value which is 2026-01-02 18:06:14, the date and time shown is of the place where this computer existed when the command in this line was run 
+select now(); column named now() has just only one value which is 2026-01-02 18:16:33, the date and time shown is of the place where this computer existed when the command in this line began to run 
+select date("2019-10-15 09:34:21"); column named date("2019-10-15 09:34:21") has just only one value, the date function extracts the date from the string passed to it and returns it, so the value of the column named date("2019-10-15 09:34:21") is 2019-10-15
+select month("2019-10-15 09:34:21"); column named month("2019-10-15 09:34:21") has just only one value, the month function extracts the month from the string passed to it, so the value of the column named month("2019-10-15 09:34:21") is 10
+select monthname("2019-10-15 09:34:21"); column named monthname("2019-10-15 09:34:21") has just only one value, the monthname function extracts the month name from the string passed to it, so the value of the column named monthname("2019-10-15 09:34:21") is October
+select year("2019-10-15 09:34:21"); column named year("2019-10-15 09:34:21") has just only one value, the year function extracts the year from the string passed to it, so the value of the column named year("2019-10-15 09:34:21") is 2019 
+select id, name, year(dob) as year from students; column named year contains the years born of each of the students in the students table
+select quarter("2019-10-15 09:34:21"); column named quarter("2019-10-15 09:34:21") has just only one value, 1st quarter is Jan to Mar, 2nd is from Apr to Jun, 3rd is from Jul to Sep, 4th is from Oct to Dec, the value of column named quarter("2019-10-15 09:34:21") is 4
+select day("2019-10-15 09:34:21"); column named day("2019-10-15 09:34:21") has just only one value which is 15
+dayofmonth function behaves exactly like day function 
+select dayname("2019-10-15 09:34:21"); column named dayname("2019-10-15 09:34:21") has just only one value which is Tuesday, Tuesday is the day name of 15th october 2019
+select dayofweek("2019-10-15 09:34:21"); column named dayofweek("2019-10-15 09:34:21") has just only one value, 1st day of week is considered sunday, 2nd day of week is considered monday, 3rd day of week is considered tuesday, 4th day of week is considered wednesday, 5th day of week is considered thursday, 6th day of week is considered friday, 7th day of week is considered saturday, so 3 is the value of the column named 
+                                         dayofweek("2019-10-15 09:34:21")
+select dayofyear("2019-10-15 09:34:21"); column named dayofyear("2019-10-15 09:34:21") has just only one value which is 288 since 15th october 2019 is the 288th day of 2019 
+select week("2019-10-15 09:34:21"); column named week("2019-10-15 09:34:21") has just only one value which is 41 since 15th october 2019 is the 41st week of the year 2019 
+select weekday("2019-10-15 09:34:21"); column named weekday("2019-10-15 09:34:21") has just only one value, monday is 0th day of week, tuesday is 1st day of week, wednesday is 2nd day of week, thursday is 3rd day of week, friday is 4th day of week, saturday is 5th day of week, sunday is sixth day of week, so 1 is the value of the column named weekday("2019-10-15 09:34:21")
+select yearweek("2019-10-15 09:34:21"); column named yearweek("2019-10-15 09:34:21") has just only one value which is 201941, 15th october 2019 is the 41st week of the year 2019 
+select last_day("2019-10-15 09:34:21"); column named last_day("2019-10-15 09:34:21") has just only one value which is 2019-10-31, last_day function returns the date of the last day of the month and year passed to it 
+select extract(month from "2019-10-15 09:34:21"); column named extract(month from "2019-10-15 09:34:21") has just only one value which is 10
+select extract(day from "2019-10-15 09:34:21"); column named extract(day from "2019-10-15 09:34:21") has just only one value which is 15 
+select extract(year from "2019-10-15 09:34:21"); column named extract(year from "2019-10-15 09:34:21") has just only one value which is 2019 
+select extract(week from "2019-10-15 09:34:21"); column named extract(week from "2019-10-15 09:34:21") has just only one value which is 41, 15th october 2019 is the 41st week of the year 2019 
+select extract(hour from "2019-10-15 09:34:21"); column named extract(hour from "2019-10-15 09:34:21") has just only one value which is 9 
+select extract(minute from "2019-10-15 09:34:21"); column named extract(minute from "2019-10-15 09:34:21") has just only one value which is 34
+select extract(second from "2019-10-15 09:34:21"); column named extract(second from "2019-10-15 09:34:21") has just only one value which is 21 
+select extract(microsecond from "2019-10-15 09:34:21"); column named extract(microsecond from "2019-10-15 09:34:21") has just only one value which is 0 
+select extract(hour_minute from "2019-10-15 09:34:21"); column named extract(hour_minute from "2019-10-15 09:34:21") has just only one value which is 934
+select adddate("2019-10-15", interval 10 day); column named adddate("2019-10-15", interval 10 day) has just only one value which is 2019-10-25, the date 10 days after 15th october 2019 is shown 
+select adddate("2019-10-15", interval 1 month); column named adddate("2019-10-15", interval 1 month) has just only one value which is 2019-11-15, the date 1 month after 15th october 2019 is shown 
+select adddate("2019-10-15", interval 1 week); column named adddate("2019-10-15", interval 1 week) has just only one value which is 2019-10-22, the date 1 week after 15th october 2019 is shown 
+select adddate("2019-10-15", interval 1 year); column named adddate("2019-10-15", interval 1 year) has just only one value which is 2020-10-15, the date 1 year after 15th october 2019 is shown 
+select adddate("2019-10-15", interval 1 quarter); column named adddate("2019-10-15", interval 1 quarter) has just only one value which is 2020-01-15, the date 3 months after 15th october 2019 is shown
+select adddate("2019-10-15", interval 12 hour); column named adddate("2019-10-15", interval 12 hour) has just only one value which is 2019-10-15 12:00:00
+select adddate("2019-10-15", interval 24 hour); column named adddate("2019-10-15", interval 24 hour) has just only one value which is 2019-10-16 00:00:00
+select adddate("2019-10-15", interval 500 minute); column named adddate("2019-10-15", interval 500 minute) has just only one value which is 2019-10-15 08:20:00
+date_add function behaves exactly the same way as adddate function 
+select makedate(2019, 288); column named makedate(2019, 288) has just only one value, the date returned is the date 287 days after the date 2019-01-01, so the value of the column makedate(2019, 288) is 2019-10-15 
+select subdate("2019-10-15", interval 1 day); column named subdate("2019-10-15", interval 1 day) has just only one value which is 2019-10-14, the date 1 day before the date 2019-10-15 is shown 
+select datediff("2019-10-15","2019-01-01"); column named datediff("2019-10-15","2019-01-01") has just only one value which is 287, 2019-10-15 - 2019-01-01 in days is returned
+select to_days("2019-10-15"); column named to_days("2019-10-15") has just only one value, (2019-10-15 - 0000-01-01) + 1 in days is returned, can be thought as (number of days past since 1st january of 1st bc to have reached 15th october 2019) + 1, so the value of the column named to_days("2019-10-15") is 737712
+select from_days("737712"); column named from_days("737712") has just one value which is 2019-10-15, note that select to_days("2019-10-15"); returned 737712 value 
+select period_add("201910", 5); column named period_add("201910", 5) has just one value, 5 months after october 2019 is returned, value returned is date in format YYYYMM, so value of column named period_add("201910", 5) is 202003 
+select period_diff("201910", "201901"); column named period_diff("201910", "201901") has just one value, the number of months to be over to reach october 2019 from january 2019 is displayed which is 9, so the value of the column named period_diff("201910", "201901") is 9
+day
+%d (01 to 31)
+%e (1 to 31)
+%D (st, nd, rd or th)
+%j (001 to 366) // day of year
+month
+%M (Januay to December)
+%b (Jan to Dec) 
+%m (01 to 12)
+%c (1 to 12)
+year
+%Y (year shown using four digits, example:- 2019)
+%y (last two digits of year are shown)
+week
+%a (Mon to Sun)
+%W (Monday to Sunday)
+%w (0 to 6, 0 is sunday, 1 is monday, 2 is tuesday and so on)
+hour
+%h (01 to 12)
+%H (00 to 23)
+%l (1 to 12)
+%k (0 to 23)
+minute
+%i (00 to 59)
+second
+%s (00 to 59)
+microsecond
+%f (000000 to 999999)
+meridiem
+%p (AM or PM)
+select date_format("2019-06-15", "%Y"); column named date_format("2019-06-15", "%Y") has just one value which is 2019 
+select date_format("2019-06-15", "%d/%b/%Y"); column named date_format("2019-06-15", "%d/%b/%Y") has just one value which is 15/Jun/2019
+select date_format("2019-06-15 02:30:50.200000", "%d/%b/%Y, %h:%i"); column named date_format("2019-06-15 02:30:50.200000", "%d/%b/%Y, %h:%i") has just one value which is 15/Jun/2019, 02:30
+select str_to_date("15 October 2019", "%d %M %Y"); coloumn named str_to_date("15 October 2019", "%d %M %Y") has just one value which is 2019-10-15
+select current_time(); column named current_time() has just one value which is 22:21:50, the current time of the place where this computer existed when the command in this line was run is shown 
+select curtime(); column named curtime() has just one value which is 22:23:58, the current time of the place where this computer existed when the command in this line was run is shown 
+select current_timestamp(); column named current_timestamp() has just one value which is 2026-01-02 22:32:15, the current date and time of the place where this computer existed when the command in this line was run is shown 
+localtime and localtimestamp functions behave exactly like current_timestamp function 
+select time("2019-10-15 13:15:20"); column named time("2019-10-15 13:15:20") has just one value which is 13:15:20
+select hour("2019-10-15 13:15:20"); column named hour("2019-10-15 13:15:20") has just one value which is 13
+select minute("2019-10-15 13:15:20"); column named minute("2019-10-15 13:15:20") has just one value which is 15
+select second("2019-10-15 13:15:20"); column named second("2019-10-15 13:15:20") has just one value which is 20
+select microsecond("2019-10-15 13:15:20") column named microsecond("2019-10-15 13:15:20") has just one value which is 0 
+select timediff("18:12:08", "13:15:20"); column named timediff("18:12:08", "13:15:20") has just one value which is 04:56:48, 18:12:08 - 13:15:20 = 04:56:48 
+select addtime("2019-10-15 05:30:20.000001", "02:10:05.000003"); column named addtime("2019-10-15 05:30:20.000001", "02:10:05.000003") has just one value which is 2019-10-15 07:40:25.000004 
+select addtime("2019-10-15 05:30:20.000001", "5 02:10:05.000003"); column named addtime("2019-10-15 05:30:20.000001", "5 02:10:05.000003") has just one value which is 2019-10-20 07:40:25.000004
+select subtime("2019-10-15 05:30:20.000001", "5 02:10:05.000003"); column named subtime("2019-10-15 05:30:20.000001", "5 02:10:05.000003") has just one value which is 2019-10-10 03:20:14.999998
+select maketime(16, 15, 20); column named maketime(16, 15, 20) has just one value which is 16:15:20, 16 is the number of hours, 15 is number of minutes, 20 is number of seconds 
+select timestamp("2019-10-15", "13:15:20"); column named timestamp("2019-10-15", "13:15:20") has just one value which is 2019-10-15 13:15:20
+select time_format("13:15:20", "%H"); column named time_format("13:15:20", "%H") has just one value which is 13 
+select time_to_sec("13:15:20"); column named time_to_sec("13:15:20") has just one value which is 47720, 47720 is the number of seconds that make up 13 hours 15 minutes 20 seconds 
+select sec_to_time("47720"); column named sec_to_time("47720") has just  one value which is 13:15:20.000000, 47720 is the number of seconds that make up 13 hours 15 minutes 20 seconds 
+alter table students add column email varchar(70);
+alter table students modify email varchar(70) after name; // email column would appear just after name column 
+alter table students modify email int; // datatype of email column is changed 
+alter table students add unique(email); // unique constraint is added to email column 
+alter table students change email email_id varchar(70); // column name is changed from email to email_id, datatype is changed from int to varchar(70) 
+alter table students drop column email_id; // column email_id is removed 
+alter table students rename students_list; // table students is renamed to students_list 
+drop table table_name // deletes table fully 
+truncate table table_name // deletes only records if any of a table
+create view student_data as select s.id, s.name, c.course_name from students_list s inner join courses c on s.course = c.course_id;
+select * from student_data;
+alter view student_data as select s.id, s.name, c.course_name, ci.cityname from students_list s inner join courses c on s.course = c.course_id inner join city ci on s.city = ci.cid; // student_data view is modified 
+instead of alter view we can also create or replace view 
+rename table student_data to studentdata; // view name is changed from student_data to studentdata 
+drop view studentdata;
+view name should not match any existing table's name 
+create index index_name on table_name (column1, column2, ...);
+an index is created on a table that has many lakhs of records, when we try to select some records of some columns that are not having primary key constraint and unique constraint from a table that has lakhs of records it would take lot of time 
+to reduce the time taken we can create an index mentioning the columns that have no primary key and unique constraints whose some records we would like to select often 
+when a table is created by default an index is created for each of the columns that has primary key constraint or unique constraint
+avoid creating an index on a column that has too many null values
+drop index index_name; 
+show index from students_list; // all index names on students_list table are shown 
+

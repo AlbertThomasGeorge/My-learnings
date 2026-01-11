@@ -1,0 +1,13 @@
+crud 
+c - create
+r - read 
+u - update 
+d - delete 
+1st connection
+mysqli_connect(server name, user name, password, database name);
+since xampp is installed in this computer itself, server name is localhost
+2nd run sql query 
+mysqli_query(connection name, sql query);
+3rd close connection  
+mysqli_close(connection name);
+utf8mb4_general_ci can be selected while creating database using phpMyAdmin

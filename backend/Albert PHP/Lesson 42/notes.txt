@@ -1,0 +1,41 @@
+element with col-md-4 class has width set to (4/12)*100% of its parent width when screen width is more than or equal to 992px
+by default links are blue in color even while using bootstrap
+pagination is a bootstrap class 
+if we add first record with id=0, then if we have never run SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO"; then even though we added 0 as id, 1 would be displayed as id
+SET AUTOCOMMIT = 0; // changes are not saved until we run commit; 
+START TRANSACTION; // a transaction is started
+SET time_zone = "+00:00"; // GMT+0 time is used 
+Code typed in phpMyAdmin
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+CREATE TABLE post (
+  post_id int NOT NULL,
+  title varchar(100) NOT NULL,
+  description text NOT NULL,
+  category varchar(100) NOT NULL,
+  post_date varchar(50) NOT NULL,
+  author int NOT NULL,
+  post_img varchar(100) NOT NULL
+);
+CREATE TABLE users (
+  user_id int UNSIGNED NOT NULL,
+  first_name varchar(30) NOT NULL,
+  last_name varchar(30) NOT NULL,
+  username varchar(30) DEFAULT NULL,
+  password varchar(40) DEFAULT NULL,
+  role int NOT NULL
+);
+CREATE TABLE category (
+  category_id int NOT NULL,
+  category_name varchar(100) NOT NULL,
+  post int NOT NULL DEFAULT 0 // number of posts 
+); 
+ALTER TABLE category ADD PRIMARY KEY (category_id);
+ALTER TABLE post ADD PRIMARY KEY (post_id), ADD UNIQUE KEY post_id (post_id);
+ALTER TABLE users ADD PRIMARY KEY (user_id);
+ALTER TABLE category MODIFY category_id int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+ALTER TABLE post MODIFY post_id int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+ALTER TABLE users MODIFY user_id int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+COMMIT;

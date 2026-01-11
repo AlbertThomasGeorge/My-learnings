@@ -1,0 +1,226 @@
+body{
+    font-family: sans-serif,arial,Helvetica;
+    background-color: #999;
+}
+ul{
+    list-style-type: none; /* the default bullet points that appear within list items of unordered lists are removed */
+}
+h2.page-heading{
+  /* below styles are applied to all h2 elements that hasve a class named page-heading */
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px; /* padding is added at the bottom so that letters like y don't stay very close or touch the bottom border */
+}
+img.logo{
+    width: 100%; /* full width of div in which image is there is used */
+    height: 200px;
+} 
+#header-admin{
+    background-color: #1E90FF;
+    padding-bottom: 20px; 
+}
+#header-admin .admin-logout{
+    margin-top: 20px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block; /* for links to have top or bottom margin we need to set display to inline-block */
+}
+.div-in-admin-of-header{
+    text-align: center; /* logo, link LOGOUT, link POST, link CATEGORY and link USERS are centered horizontally */
+}
+#admin-menubar{
+    background-color: #fff; 
+}
+#admin-menubar .admin-menu{
+    display: flex;
+    justify-content: left;
+}
+#admin-menubar .admin-menu li{
+    margin-right: 458px;
+}
+#admin-menubar .admin-menu li:last-child{
+    margin-right: 0;
+}
+#admin-menubar .admin-menu li a{
+    color: #1E90FF;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+#admin-content{
+    padding: 20px 0; /* padding at top and bottom is 20px */
+    min-height: 600px; /* minimum height of div with id admin-content is 600px */
+}
+#admin-content .admin-heading{
+    font-size: 35px;
+    margin: 0 0 15px; /* margin at the bottom is 15px */
+}
+#admin-content .add-new{
+    color: #fff;
+    background-color: #1E90FF;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    display: block; /* the full width of the direct parent is uesd */
+}
+#admin-content .content-table{
+    width: 100%;
+    margin: 0 0 20px; /* 20px margin at the bottom */
+}
+#admin-content .content-table thead, #admin-content .content-table tbody{
+    color: #fff;
+}
+#admin-content .content-table th{
+    text-align: center;
+    border: 1px solid #fff;
+    text-transform: uppercase;
+}
+#admin-content .content-table tbody td{
+    padding: 10px;
+    border: 1px solid #fff;
+    text-align: center;
+}
+#admin-content i{
+    color: #fff;
+}
+form{
+    background: #fff;
+    padding: 25px;
+}
+#header{
+    background: #1e90ff;
+    text-align: center;
+}
+#logo img{
+    width: 100%;
+    height: 200px;
+}
+#menu-bar{
+    background: #333;
+}
+#menu-bar .menu{
+    display: flex;
+    justify-content: center;
+}
+.menu li a{
+    padding-right: 10px;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 15px;
+}
+#main-content{
+    padding: 30px 0; /* padding at top and bottom is 30px */
+}
+#main-content .post-container{
+    background-color: #fff;
+}
+#main-content .post-content{
+    border-bottom: 1px solid #000;
+}
+#main-content .post-content img{
+  width: 100%; /* 100% width of parent of image would be used, padding of parent is not included however */
+}
+#main-content .post-content .post-img{
+  height: 145px;
+}
+#main-content .post-content .post-information span{
+    text-transform: capitalize;
+    margin: 0 15px 0 0; /* right margin is 15px */
+}
+#main-content .post-content .post-information i{
+    color: #1e90ff;
+    margin-right: 1px;
+}
+#main-content .single-post h3{
+    color: #1e90ff;
+}
+#main-content .single-post p{
+    text-align: justify;
+}
+#main-content .single-post img.single-feature-image{
+    width: 70%;
+    margin: 0 auto 20px;
+    display: block; /* for margin to be whatever specified display has to be set to block for the image */
+}
+h2.page-heading{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+#main-content .single-post h3{
+    margin-top: 0;
+}
+.pagination{
+    display: flex;
+    justify-content: center;
+}
+#sidebar h4{
+    text-transform: uppercase;
+}
+#sidebar .search-box-container{
+    background-color: #fff;
+    padding: 20px;
+    margin: 0 0 30px;
+}
+#sidebar .search-post{
+    padding: 0;
+}
+#sidebar .search-post .btn{
+    text-transform: uppercase;
+    padding: 6px 8px;
+    background-color: #1E90FF;
+}
+#sidebar .recent-post-container{
+    padding: 20px;
+    background: #fff;
+}
+#sidebar .recent-post{
+    padding: 0 0 30px; /* padding at the bottom of every recent post is set to 30px */
+}
+#sidebar .recent-post:last-child{
+    padding: 0; /* padding of last recent post in side bar is 0 */
+}
+#sidebar .recent-post{
+    display: flex; /* direct children of div with class recent-post are placed in one row, by default flex-wrap is set to nowrap */
+}
+#sidebar .recent-post .post-img{
+    width: 33%;
+}
+#sidebar .recent-post .post-img img{
+    width: 100%;
+}
+#sidebar .recent-post .post-content{
+    width: 65%;
+    padding: 4px;
+}
+#sidebar .recent-post h5{
+    margin-top: 0;
+}
+#sidebar .post-content{
+    border: none;
+}
+#sidebar .recent-post-container i{
+    color: #1e90ff;
+}
+#sidebar .recent-post .tag{
+    margin-right: 30px;
+}
+#footer{
+    color: #fff;
+    padding:15px 0;
+    text-align:center;
+    background-color:#1e90ff;
+}
+#footer a{
+    color:#fff;
+}
+.normal-user-style{
+    display: flex;
+    padding-left: 0;
+    font-size: 16px;
+    justify-content: center;
+}
+
+
+
